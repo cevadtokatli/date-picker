@@ -1,0 +1,47 @@
+{
+  "name": "window-date-picker",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Window Date Picker is a JavaScript library for setting and choosing date and hour.",
+  "keywords": [
+    "javascript",
+    "date",
+    "time",
+    "hour",
+    "input",
+    "picker"
+  ],
+  "author": {
+    "name": "Cevad Tokatli",
+    "email": "cevadtokatli@hotmail.com",
+    "url": "http://cevadtokatli.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cevadtokatli/window-date-picker"
+  },
+  "files": [
+    "src",
+    "dist",
+    "types",
+    "gulpfile.js"
+  ],
+  "main": "dist/js/window-date-picker.min.js",
+  "module": "dist/js/window-date-picker.esm.js",
+  "typings": "types/index.d.ts",
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.1",
+    "node-sass": "^4.9.3",
+    "rollup": "^0.65.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  }
+}
