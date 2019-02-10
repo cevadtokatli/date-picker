@@ -1,0 +1,13 @@
+export const DATE = 'DATE';
+export const HOUR = 'HOUR';
+export const DATEHOUR = 'DATEHOUR';
+export const DMY = 'DD/MM/YYYY';
+export const MDY = 'MM/DD/YYYY';
+export const $12 = '12';
+export const $24 = '24';
+export const MONTH = 'MONTH';
+export const YEAR = 'YEAR';
+export const YEAR_RANGE = 'YEAR_RANGE';
+export const TYPE = [DATE, HOUR, DATEHOUR];
+export const DATETYPE = [DMY, MDY];
+export const HOURTYPE = [$12, $24];

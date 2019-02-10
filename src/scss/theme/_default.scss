@@ -1,0 +1,5 @@
+@import '../variables';
+
+.wdp {
+    @include insert-theme();
+}

@@ -1,0 +1,118 @@
+@mixin insert-minified() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, .3);
+
+    .wdp-container {
+        width: $width-sm;
+        transform-origin: 50% 50%;
+
+        .wdp-header {
+            padding: $header-padding-sm;
+            
+            > div {
+                div {
+                    width: $week-el-size-sm;
+                }
+
+                > div:first-child svg {
+                    left: ($week-el-size-sm - $header-icon-size) / 2;
+                    top: ($header-icon-size / 2) * -1;
+                }
+            }
+        }
+
+        .wdp-body {
+            height: $body-height-sm;
+
+            .wdp-date-container {
+                .wdp-date-header {
+                    padding: $date-header-padding-sm;
+    
+                    > div div {
+                        width: $week-el-size-sm;
+                    }
+                }
+
+                .wdp-date-body {    
+                    .wdp-week-container .wdp-week li {
+                        width: $week-el-size-sm;
+                        height: $week-el-size-sm;
+
+                        &.wdp-active:before {
+                            width: $week-el-size-active-sm;
+                            height: $week-el-size-active-sm;
+                            left: ($week-el-size-sm - $week-el-size-active-sm) / 2;
+                            top: ($week-el-size-sm - $week-el-size-active-sm) / 2;
+                        }
+                    }
+    
+                    .wdp-list-container .wdp-list li {
+                        width: $list-el-size-sm;
+                        height: $list-el-size-sm;
+
+                        &.wdp-active:before {
+                            width: $list-el-size-active-sm;
+                            height: $list-el-size-active-sm;
+                            left: ($list-el-size-sm - $list-el-size-active-sm) / 2;
+                            top: ($list-el-size-sm - $list-el-size-active-sm) / 2;
+                        }
+                    }
+                }
+
+                ul li {
+                    font-size: $font-size-sm;
+                }
+            }
+
+            .wdp-hour-container {   
+                .wdp-hour-arrow-container {
+                    > div {      
+                        width: $hour-el-size-sm;
+                        height: $hour-el-size-sm;
+
+                        svg {
+                            width: $hour-arrow-size-sm;
+                            height: $hour-arrow-size-sm;
+                        }
+                    }
+
+                    &:first-child > div svg {
+                        margin-top: -1.5px;
+                    }
+
+                    &:last-child > div svg {
+                        margin-top: -.5px;
+                    }
+                }
+
+                .wdp-hour-el-container {
+                    input {
+                        width: $hour-el-size-sm;
+                        height: $hour-el-size-sm;
+                        font-size: $font-size-sm;
+                    }
+                }
+            }
+        }
+
+        .wdp-buttons {
+            padding: $button-container-padding-sm;
+            margin: $button-container-margin-sm;
+
+            a {
+                padding: $button-padding-sm;
+            }
+        }
+    }
+}

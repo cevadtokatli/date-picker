@@ -1,0 +1,62 @@
+$width: 310px;
+$width-sm: 210px;
+$width-media: 320px;
+
+$z-index: 100;
+$border-radius: 4px;
+$font-family: "Open Sans";
+$font-size: 14px;
+$font-size-sm: 13px;
+$font-weight: 400;
+$font-weight-bold: 600;
+$box-shadow: 0 5px 20px 2px rgba(0, 0, 0, .3);
+
+$header-padding: 15px 15px 15px 25px;
+$header-icon-size: 16px;
+$body-height: 340px;
+$body-padding: 10px 0;
+$date-header-padding: 10px 15px 10px 25px;
+$list-padding: 0 15px;
+$list-el-size: 70px;
+$list-el-size-active: 60px;
+$week-el-size: 40px;
+$week-el-size-active: 30px;
+$hour-el-size: 60px;
+$hour-el-padding: 10px;
+$hour-el-margin: 10px;
+$hour-el-font-size: 20px;
+$hour-arrow-size: 40px;
+$button-container-margin: -10px 0 0 0;
+$button-container-padding: 0 15px 15px;
+$button-padding: 10px 11px;
+
+$header-padding-sm: 15px 15px 15px 17px;
+$body-height-sm: 225px;
+$date-header-padding-sm: 5px 15px 5px 17px;
+$list-padding-sm: 0 10px;
+$list-el-size-sm: 43.75px;
+$list-el-size-active-sm: 43.75px;
+$week-el-size-sm: 25px;
+$week-el-size-active-sm: 20px;
+$hour-el-size-sm: 45px;
+$hour-arrow-size-sm: 35px;
+$button-container-margin-sm: -7px 0 0 0;
+$button-container-padding-sm: 0 10px 10px;
+$button-padding-sm: 10px 9px;
+
+$color: #0f9aef;
+$color-light: #fff;
+$color-gray: #919191;
+$color-dark: #4d4d4d;
+
+$text-color: $color-dark;
+$text-muted: $color-gray;
+$container-background: $color-light;
+$header-background: $color;
+$header-text-color: $color-light;
+$header-icon-color: darken($color, 10%);
+$list-el-background-active: $color;
+$list-el-text-active: $color-light;
+$hour-input-text: $color-light;
+$button-background-focus: darken($color-light, 5%);
+$button-text: $color;

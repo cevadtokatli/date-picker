@@ -1,0 +1,14 @@
+@import '../variables';
+
+$color: #ebb512;
+$header-background: $color;
+$header-text-color: $color-dark;
+$header-icon-color: darken($color, 10%);
+$list-el-text-active: $color-dark;
+$list-el-background-active: $color;
+$hour-input-text: $color-dark;
+$button-text: $color-dark;
+
+.wdp.wdp-yellow {
+    @include insert-theme();
+}

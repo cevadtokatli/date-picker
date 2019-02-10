@@ -1,0 +1,40 @@
+@mixin insert-theme() {
+    .wdp-container {
+        .wdp-header {
+            background: $header-background;
+
+            span {
+                color: $header-text-color;
+            }
+
+            svg {
+                fill: $header-icon-color;
+
+                &:hover {
+                    fill: darken($header-icon-color, 5%);
+                }
+            }
+        }
+
+        .wdp-date-container ul li.wdp-active {
+            color: $list-el-text-active !important;
+
+            &:before {
+                background: $list-el-background-active;
+            }
+        }
+
+        .wdp-hour-container .wdp-hour-el-container input {
+            background: $color;
+            color: $hour-input-text;
+
+            &:focus {
+                background: darken($color, 5%);
+            }
+        }
+
+        .wdp-buttons a {
+            color: $button-text;
+        }
+    }
+}

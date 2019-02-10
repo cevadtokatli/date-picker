@@ -1,0 +1,10 @@
+@import '../variables';
+
+$color: #007bff;
+$header-background: $color;
+$header-icon-color: darken($color, 10%);
+$list-el-background-active: $color;
+
+.wdp.wdp-blue {
+    @include insert-theme();
+}
