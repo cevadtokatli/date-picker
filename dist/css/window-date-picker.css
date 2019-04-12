@@ -144,6 +144,9 @@
               -ms-flex-align: center;
               align-items: center;
               width: 40px; }
+          .wdp .wdp-container .wdp-body .wdp-date-container .wdp-date-header svg {
+            width: 20px;
+            height: 20px; }
         .wdp .wdp-container .wdp-body .wdp-date-container .wdp-date-body .wdp-week-container .wdp-week-header {
           position: relative;
           overflow: hidden;

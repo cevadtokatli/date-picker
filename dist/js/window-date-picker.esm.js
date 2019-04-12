@@ -385,7 +385,8 @@ var DEFAULT_OPTIONS = {
   showButtons: false,
   inputToggle: false,
   lang: 'en',
-  orientation: false
+  orientation: false,
+  showArrowButtons: false
 };
 
 var EN = {
@@ -437,7 +438,8 @@ function () {
     this.dateType = DATETYPE.indexOf(o.dateType) !== -1 ? o.dateType : DEFAULT_OPTIONS.dateType;
     this.hourType = HOURTYPE.indexOf(o.hourType) !== -1 ? o.hourType : DEFAULT_OPTIONS.hourType;
     this.allowEmpty = o.allowEmpty;
-    this.orientation = o.orientation;
+    this.showArrowButtons = o.showArrowButtons;
+    this.orientation = o.showArrowButtons ? true : o.orientation;
 
     if ((o.value == null || o.value == '') && o.allowEmpty) {
       this.setEmptyValue();
@@ -478,7 +480,7 @@ function () {
 
       this.tmpYearValue = {};
       this.tmpYearRangeValue = {};
-      this.els.body.innerHTML = "\n                <div class=\"wdp-date-container\">\n                    <div class=\"wdp-date-header\">\n                        <span></span>\n                        <div>\n                            <div>\n                                <svg width=\"20\" height=\"20\" viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z\"></path></svg>\n                            </div>\n                            <div>\n                                <svg width=\"20\" height=\"20\" viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z\"></path></svg>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"wdp-date-body\">\n                        <div class=\"wdp-week-container\">\n                            <div class=\"wdp-week-header\">\n                                <ul class=\"wdp-week\">\n                                    <li>".concat(this.LANG.DAYS_ABBR[1].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[2].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[3].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[4].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[5].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[6].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[7].substring(0, 2), "</li>\n                                </ul>\n                            </div>\n                            <div class=\"wdp-week-body\"></div>\n                        </div>\n                        <div class=\"wdp-list-container\"></div>\n                        <div class=\"wdp-list-container\"></div>\n                    </div>\n                </div>\n            ");
+      this.els.body.innerHTML = "\n                <div class=\"wdp-date-container\">\n                    <div class=\"wdp-date-header\">\n                        <span></span>\n                        <div>\n                            <div>\n                                ".concat(this.renderUpIcon(), "\n                            </div>\n                            <div>\n                                ").concat(this.renderDownIcon(), "\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"wdp-date-body\">\n                        <div class=\"wdp-week-container\">\n                            <div class=\"wdp-week-header\">\n                                <ul class=\"wdp-week\">\n                                    <li>").concat(this.LANG.DAYS_ABBR[1].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[2].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[3].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[4].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[5].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[6].substring(0, 2), "</li>\n                                    <li>").concat(this.LANG.DAYS_ABBR[7].substring(0, 2), "</li>\n                                </ul>\n                            </div>\n                            <div class=\"wdp-week-body\"></div>\n                        </div>\n                        <div class=\"wdp-list-container\"></div>\n                        <div class=\"wdp-list-container\"></div>\n                    </div>\n                </div>\n            ");
       this.els.dateContainer = this.el.querySelector('.wdp-date-container');
       this.els.weekContainer = this.el.querySelector('.wdp-week-container');
       this.els.dateSpan = this.el.querySelector('.wdp-date-container .wdp-date-header span');
@@ -506,7 +508,7 @@ function () {
     if (this.type != DATE) {
       this.els.hourContainer = document.createElement('div');
       this.els.hourContainer.classList.add('wdp-hour-container');
-      this.els.hourContainer.innerHTML = "\n                <div class=\"wdp-hour-arrow-container\">\n                    <div>\n                        <svg viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z\"></path></svg>\n                    </div>\n                    <div>\n                        <svg viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z\"></path></svg>\n                    </div>\n                    ".concat(this.hourType == $12 ? '<div><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg></div>' : '', "\n                </div>\n                <div class=\"wdp-hour-el-container\">\n                    <input type=\"text\" spellcheck=\"false\" class=\"wdp-hour-el\">\n                    <input type=\"text\" spellcheck=\"false\" class=\"wdp-hour-el\">\n                    ").concat(this.hourType == $12 ? '<input type="text" spellcheck="false" class="wdp-hour-el">' : '', "\n                </div>\n                <div class=\"wdp-hour-arrow-container\">\n                    <div>\n                        <svg viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z\"></path></svg>\n                    </div>\n                    <div>\n                        <svg viewBox=\"0 0 1792 1792\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z\"></path></svg>\n                    </div>\n                    ").concat(this.hourType == $12 ? '<div><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg></div>' : '', "\n                </div>\n            ");
+      this.els.hourContainer.innerHTML = "\n                <div class=\"wdp-hour-arrow-container\">\n                    <div>\n                        ".concat(this.renderUpIcon(), "\n                    </div>\n                    <div>\n                        ").concat(this.renderUpIcon(), "\n                    </div>\n                    ").concat(this.hourType == $12 ? "<div>".concat(this.renderUpIcon(), "</div>") : '', "\n                </div>\n                <div class=\"wdp-hour-el-container\">\n                    <input type=\"text\" spellcheck=\"false\" class=\"wdp-hour-el\">\n                    <input type=\"text\" spellcheck=\"false\" class=\"wdp-hour-el\">\n                    ").concat(this.hourType == $12 ? '<input type="text" spellcheck="false" class="wdp-hour-el">' : '', "\n                </div>\n                <div class=\"wdp-hour-arrow-container\">\n                    <div>\n                        ").concat(this.renderDownIcon(), "\n                    </div>\n                    <div>\n                        ").concat(this.renderDownIcon(), "\n                    </div>\n                    ").concat(this.hourType == $12 ? "<div>".concat(this.renderDownIcon(), "</div>") : '', "\n                </div>\n            ");
       this.els.body.appendChild(this.els.hourContainer);
       this.els.hourInput = this.els.hourContainer.querySelector('.wdp-hour-el-container > input:nth-child(1)');
       this.els.hourInput.value = Util.renderNumber(this.value.hour || 0);
@@ -805,6 +807,28 @@ function () {
       while (i < 16) {
         _loop2();
       }
+    }
+    /**
+     * Renders up icon.
+     * 
+     * @returns {String}
+     */
+
+  }, {
+    key: "renderUpIcon",
+    value: function renderUpIcon() {
+      if (this.showArrowButtons) return '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/></svg>';else return '<svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg>';
+    }
+    /**
+     * Renders down icon.
+     * 
+     * @returns {String}
+     */
+
+  }, {
+    key: "renderDownIcon",
+    value: function renderDownIcon() {
+      if (this.showArrowButtons) return '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-1216q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h1216q40 0 68 28t28 68z"/></svg>';else return '<svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg>';
     }
     /**
      * Sets value according to input text.

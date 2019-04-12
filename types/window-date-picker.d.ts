@@ -23,13 +23,16 @@ export declare class WindowDatePicker {
 	inputToggle: Boolean;
 	showButtons: Boolean;
 	orientation: Boolean;
+	showArrowButtons: Boolean;
     static LANG: {[key:String]: Lang};
 
     constructor(o:Options);
     extractAttributes(o:Options): Options;
 	renderMonth(): void;
 	renderYear(): void;
-    renderYearRange(): void;
+	renderYearRange(): void;
+	renderUpIcon(): String;
+	renderDownIcon(): String;
 	changeInput(): void;
 	changeHourInput(): void;
 	changeMinuteInput(): void;

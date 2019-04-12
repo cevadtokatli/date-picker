@@ -130,6 +130,11 @@
                             width: $week-el-size;
                         }
                     }
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
     
                 .wdp-date-body {

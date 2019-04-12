@@ -30,7 +30,8 @@ export default class WindowDatePicker {
         this.dateType = (T.DATETYPE.indexOf(o.dateType) !== -1) ? o.dateType : DEFAULT_OPTIONS.dateType;
         this.hourType = (T.HOURTYPE.indexOf(o.hourType) !== -1) ? o.hourType : DEFAULT_OPTIONS.hourType;
         this.allowEmpty = o.allowEmpty;
-        this.orientation = o.orientation;
+        this.showArrowButtons = o.showArrowButtons;
+        this.orientation = o.showArrowButtons ? true : o.orientation;
 
         if((o.value == null || o.value == '') && o.allowEmpty) {
             this.setEmptyValue();
@@ -91,10 +92,10 @@ export default class WindowDatePicker {
                         <span></span>
                         <div>
                             <div>
-                                <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg>
+                                ${this.renderUpIcon()}
                             </div>
                             <div>
-                                <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg>
+                                ${this.renderDownIcon()}
                             </div>
                         </div>
                     </div>
@@ -164,13 +165,13 @@ export default class WindowDatePicker {
             this.els.hourContainer.innerHTML = `
                 <div class="wdp-hour-arrow-container">
                     <div>
-                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg>
+                        ${this.renderUpIcon()}
                     </div>
                     <div>
-                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg>
+                        ${this.renderUpIcon()}
                     </div>
                     ${ this.hourType == T.$12
-                        ? '<div><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg></div>'
+                        ? `<div>${this.renderUpIcon()}</div>`
                         : '' }
                 </div>
                 <div class="wdp-hour-el-container">
@@ -182,13 +183,13 @@ export default class WindowDatePicker {
                 </div>
                 <div class="wdp-hour-arrow-container">
                     <div>
-                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg>
+                        ${this.renderDownIcon()}
                     </div>
                     <div>
-                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg>
+                        ${this.renderDownIcon()}
                     </div>
                     ${ this.hourType == T.$12
-                        ? '<div><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg></div>'
+                        ? `<div>${this.renderDownIcon()}</div>`
                         : '' }
                 </div>
             `;
@@ -502,6 +503,30 @@ export default class WindowDatePicker {
             
             i += 1;
         }
+    }
+
+    /**
+     * Renders up icon.
+     * 
+     * @returns {String}
+     */
+    renderUpIcon() {
+        if(this.showArrowButtons)
+            return '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/></svg>';
+        else
+            return '<svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 1184q0 13-10 23l-50 50q-10 10-23 10t-23-10l-393-393-393 393q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l466 466q10 10 10 23z"></path></svg>';
+    }
+
+    /**
+     * Renders down icon.
+     * 
+     * @returns {String}
+     */
+    renderDownIcon() {
+        if(this.showArrowButtons)
+            return '<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-1216q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h1216q40 0 68 28t28 68z"/></svg>';
+        else
+            return '<svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path></svg>';
     }
 
     /**

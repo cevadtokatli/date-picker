@@ -11,4 +11,5 @@ export interface Options {
 	inputToggle?: Boolean;
 	lang?: String;
 	orientation?: Boolean;
+	showArrowButtons?: Boolean;
 }

@@ -12,5 +12,6 @@ export default {
     showButtons: false,
     inputToggle: false,
     lang: 'en',
-    orientation: false
+    orientation: false,
+    showArrowButtons: false
 }
