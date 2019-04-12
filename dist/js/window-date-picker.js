@@ -1,6 +1,6 @@
 /*!
 * Window Date Picker
-* version: 1.0.0
+* version: 1.0.1
 *  author: Cevad Tokatli <cevadtokatli@hotmail.com>
 * website: http://cevadtokatli.com
 *  github: https://github.com/cevadtokatli/window-date-picker
@@ -390,7 +390,8 @@
     allowEmpty: true,
     showButtons: false,
     inputToggle: false,
-    lang: 'en'
+    lang: 'en',
+    orientation: false
   };
 
   var EN = {
@@ -442,6 +443,7 @@
       this.dateType = DATETYPE.indexOf(o.dateType) !== -1 ? o.dateType : DEFAULT_OPTIONS.dateType;
       this.hourType = HOURTYPE.indexOf(o.hourType) !== -1 ? o.hourType : DEFAULT_OPTIONS.hourType;
       this.allowEmpty = o.allowEmpty;
+      this.orientation = o.orientation;
 
       if ((o.value == null || o.value == '') && o.allowEmpty) {
         this.setEmptyValue();
@@ -496,58 +498,10 @@
             _this.changeDatePage(YEAR_RANGE);
           }
         });
-        Util.addEventListener(this.els.body.querySelector('.wdp-date-header > div > div:first-child > svg'), [Util.MOUSE_DOWN], function (e) {
-          e.preventDefault();
-
-          if (_this.datePage == MONTH) {
-            var _this$tmpValue = _this.tmpValue,
-                month = _this$tmpValue.month,
-                year = _this$tmpValue.year;
-
-            if (month == 1) {
-              month = 12;
-              year -= 1;
-            } else {
-              month -= 1;
-            }
-
-            _this.setTmpMonth(month, year);
-          } else if (_this.datePage == YEAR) {
-            var year = _this.tmpYearValue.year;
-
-            _this.setTmpYear(year - 1);
-          } else {
-            var start = _this.tmpYearRangeValue.start;
-
-            _this.setTmpYearRange(start - 10);
-          }
-        });
-        Util.addEventListener(this.els.body.querySelector('.wdp-date-header > div > div:last-child svg'), [Util.MOUSE_DOWN], function (e) {
-          e.preventDefault();
-
-          if (_this.datePage == MONTH) {
-            var _this$tmpValue2 = _this.tmpValue,
-                month = _this$tmpValue2.month,
-                year = _this$tmpValue2.year;
-
-            if (month == 12) {
-              month = 1;
-              year += 1;
-            } else {
-              month += 1;
-            }
-
-            _this.setTmpMonth(month, year);
-          } else if (_this.datePage == YEAR) {
-            var year = _this.tmpYearValue.year;
-
-            _this.setTmpYear(year + 1);
-          } else {
-            var start = _this.tmpYearRangeValue.start;
-
-            _this.setTmpYearRange(start + 10);
-          }
-        });
+        this.increaseDateValue = this.increaseDateValue.bind(this);
+        this.decreaseDateValue = this.decreaseDateValue.bind(this);
+        Util.addEventListener(this.els.body.querySelector('.wdp-date-header > div > div:first-child > svg'), [Util.MOUSE_DOWN], this.orientation ? this.increaseDateValue : this.decreaseDateValue);
+        Util.addEventListener(this.els.body.querySelector('.wdp-date-header > div > div:last-child svg'), [Util.MOUSE_DOWN], !this.orientation ? this.increaseDateValue : this.decreaseDateValue);
         this.els.weekBody = this.el.querySelector('.wdp-date-container .wdp-date-body .wdp-week-body');
         this.renderMonth();
         this.setActiveDayClass();
@@ -567,13 +521,11 @@
         Util.addEventListener(this.els.hourInput, ['blur'], this.leaveHoursInput.bind(this));
         Util.addEventListener(this.els.hourContainer.querySelector('.wdp-hour-arrow-container > div:nth-child(1) > svg'), [Util.MOUSE_DOWN], function (e) {
           e.preventDefault();
-
-          _this.setHour(_this.value.hour - 1);
+          if (_this.orientation) _this.setHour(_this.value.hour + 1);else _this.setHour(_this.value.hour - 1);
         });
         Util.addEventListener(this.els.hourContainer.querySelector('.wdp-hour-el-container + .wdp-hour-arrow-container > div:nth-child(1) > svg'), [Util.MOUSE_DOWN], function (e) {
           e.preventDefault();
-
-          _this.setHour(_this.value.hour + 1);
+          if (!_this.orientation) _this.setHour(_this.value.hour + 1);else _this.setHour(_this.value.hour - 1);
         });
         this.els.minuteInput = this.els.hourContainer.querySelector('.wdp-hour-el-container > input:nth-child(2)');
         this.els.minuteInput.value = Util.renderNumber(this.value.minute || 0);
@@ -582,13 +534,11 @@
         Util.addEventListener(this.els.minuteInput, ['blur'], this.leaveHoursInput.bind(this));
         Util.addEventListener(this.els.hourContainer.querySelector('.wdp-hour-arrow-container > div:nth-child(2) > svg'), [Util.MOUSE_DOWN], function (e) {
           e.preventDefault();
-
-          _this.setMinute(_this.value.minute - 1);
+          if (_this.orientation) _this.setMinute(_this.value.minute + 1);else _this.setMinute(_this.value.minute - 1);
         });
         Util.addEventListener(this.els.hourContainer.querySelector('.wdp-hour-el-container + .wdp-hour-arrow-container > div:nth-child(2) > svg'), [Util.MOUSE_DOWN], function (e) {
           e.preventDefault();
-
-          _this.setMinute(_this.value.minute + 1);
+          if (!_this.orientation) _this.setMinute(_this.value.minute + 1);else _this.setMinute(_this.value.minute - 1);
         });
 
         if (this.hourType == $12) {
@@ -1144,8 +1094,11 @@
     }, {
       key: "wheelHourInput",
       value: function wheelHourInput(e) {
-        e.preventDefault();
         var delta = (e.deltaY || -e.wheelDelta || e.detail) >> 10 || 1;
+
+        if (this.orientation) {
+          delta = ~delta;
+        }
 
         if (delta < 0) {
           this.setHour(this.value.hour - 1);
@@ -1162,8 +1115,11 @@
     }, {
       key: "wheelMinuteInput",
       value: function wheelMinuteInput(e) {
-        e.preventDefault();
         var delta = (e.deltaY || -e.wheelDelta || e.detail) >> 10 || 1;
+
+        if (this.orientation) {
+          delta = ~delta;
+        }
 
         if (delta < 0) {
           this.setMinute(this.value.minute - 1);
@@ -1173,14 +1129,11 @@
       }
       /**
        * Sets am/pm input according to wheel.
-       * 
-       * @param {Event} e 
        */
 
     }, {
       key: "wheelAMInput",
-      value: function wheelAMInput(e) {
-        e.preventDefault();
+      value: function wheelAMInput() {
         this.setAM(!this.value.am);
       }
       /**
@@ -1776,6 +1729,70 @@
           this.el.style.top = rect.top - oh + 'px';
         } else {
           this.el.style.top = rect.top + rect.height + 'px';
+        }
+      }
+      /**
+      * Increases date value by one.
+      * 
+      * @params {Event} e 
+      */
+
+    }, {
+      key: "increaseDateValue",
+      value: function increaseDateValue(e) {
+        e.preventDefault();
+
+        if (this.datePage == MONTH) {
+          var _this$tmpValue = this.tmpValue,
+              month = _this$tmpValue.month,
+              year = _this$tmpValue.year;
+
+          if (month == 12) {
+            month = 1;
+            year += 1;
+          } else {
+            month += 1;
+          }
+
+          this.setTmpMonth(month, year);
+        } else if (this.datePage == YEAR) {
+          var year = this.tmpYearValue.year;
+          this.setTmpYear(year + 1);
+        } else {
+          var start = this.tmpYearRangeValue.start;
+          this.setTmpYearRange(start + 10);
+        }
+      }
+      /**
+       * Decreases date value by one.
+       * 
+       * @params {Event} e
+       */
+
+    }, {
+      key: "decreaseDateValue",
+      value: function decreaseDateValue(e) {
+        e.preventDefault();
+
+        if (this.datePage == MONTH) {
+          var _this$tmpValue2 = this.tmpValue,
+              month = _this$tmpValue2.month,
+              year = _this$tmpValue2.year;
+
+          if (month == 1) {
+            month = 12;
+            year -= 1;
+          } else {
+            month -= 1;
+          }
+
+          this.setTmpMonth(month, year);
+        } else if (this.datePage == YEAR) {
+          var year = this.tmpYearValue.year;
+          this.setTmpYear(year - 1);
+        } else {
+          var start = this.tmpYearRangeValue.start;
+          this.setTmpYearRange(start - 10);
         }
       }
       /**

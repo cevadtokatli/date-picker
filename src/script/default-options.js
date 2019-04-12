@@ -11,5 +11,6 @@ export default {
     allowEmpty: true,
     showButtons: false,
     inputToggle: false,
-    lang: 'en'
+    lang: 'en',
+    orientation: false
 }

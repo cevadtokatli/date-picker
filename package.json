@@ -1,6 +1,6 @@
 {
   "name": "window-date-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Window Date Picker is a JavaScript library for setting and choosing date and hour.",
   "keywords": [

@@ -21,7 +21,8 @@ export declare class WindowDatePicker {
 	pickerOpen: Boolean;
 	allowEmpty: Boolean;
 	inputToggle: Boolean;
-    showButtons: Boolean;
+	showButtons: Boolean;
+	orientation: Boolean;
     static LANG: {[key:String]: Lang};
 
     constructor(o:Options);
@@ -42,7 +43,7 @@ export declare class WindowDatePicker {
 	resetHourPage(): void;
 	wheelHourInput(e:Event): void;
 	wheelMinuteInput(e:Event): void;
-	wheelAMInput(e:Event): void;
+	wheelAMInput(): void;
 	get(): V.Value;
     getValueText(value:V.Value): String;
     getWeekDay(d:Date): Number;
@@ -65,6 +66,8 @@ export declare class WindowDatePicker {
 	setDateSpanText(): void;
 	setPageAnimation(o:HTMLElement, n:HTMLElement, a:String, b:String): void;
 	setPosition(): void;
+	increaseDateValue(e:Event): void;
+	decreaseDateValue(e:Event): void;
 	createDayCont(): HTMLUListElement;
 	createDayEl(d:Number, m:Number, y:Number, muted:Boolean): HTMLLIElement;
 	clickWindow(e:Event): void;

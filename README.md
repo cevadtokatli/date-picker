@@ -41,6 +41,7 @@ allowEmpty | Boolean | true | A boolean value that indicates whether null and em
 showButtons | Boolean | false | A boolean value that indicates whether the buttons are visible or not.
 inputToggle | Boolean | true | If sets true, opens the picker when the input is clicked.
 lang | String | "en" | Changes language of the picker. You have to create a language except _“en (English)”_ before use it.
+orientation | Boolean | false | If it is set true, up arrow increase value, down arrow decreases. If it is set false, vice versa.
 
 <span style="font-size:.9rem;">*: You can give an HTML element or a CSS selector (like `#carousel`, `.container > div:first-child`)</span>
 

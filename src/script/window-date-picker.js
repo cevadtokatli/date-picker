@@ -30,6 +30,7 @@ export default class WindowDatePicker {
         this.dateType = (T.DATETYPE.indexOf(o.dateType) !== -1) ? o.dateType : DEFAULT_OPTIONS.dateType;
         this.hourType = (T.HOURTYPE.indexOf(o.hourType) !== -1) ? o.hourType : DEFAULT_OPTIONS.hourType;
         this.allowEmpty = o.allowEmpty;
+        this.orientation = o.orientation;
 
         if((o.value == null || o.value == '') && o.allowEmpty) {
             this.setEmptyValue();
@@ -136,52 +137,19 @@ export default class WindowDatePicker {
                 }
             )
             
+            this.increaseDateValue = this.increaseDateValue.bind(this);
+            this.decreaseDateValue = this.decreaseDateValue.bind(this);
+
             Util.addEventListener(
                 this.els.body.querySelector('.wdp-date-header > div > div:first-child > svg'),
                 [Util.MOUSE_DOWN],
-                e => {
-                    e.preventDefault();
-                    if(this.datePage == T.MONTH) {
-                        var {month, year} = this.tmpValue;
-                        if(month == 1) {
-                            month = 12;
-                            year -= 1;
-                        } else {
-                            month -= 1;
-                        }
-                        this.setTmpMonth(month, year);
-                    } else if(this.datePage == T.YEAR) {
-                        var {year} = this.tmpYearValue;
-                        this.setTmpYear(year - 1);
-                    } else {
-                        var {start} = this.tmpYearRangeValue;
-                        this.setTmpYearRange(start - 10);
-                    }
-                }
+                this.orientation ? this.increaseDateValue : this.decreaseDateValue
             );
 
             Util.addEventListener(
                 this.els.body.querySelector('.wdp-date-header > div > div:last-child svg'),
                 [Util.MOUSE_DOWN],
-                e => {
-                    e.preventDefault();
-                    if(this.datePage == T.MONTH) {
-                        var {month, year} = this.tmpValue;
-                        if(month == 12) {
-                            month = 1;
-                            year += 1;
-                        } else {
-                            month += 1;
-                        }
-                        this.setTmpMonth(month, year);
-                    } else if(this.datePage == T.YEAR) {
-                        var {year} = this.tmpYearValue;
-                        this.setTmpYear(year + 1);
-                    } else {
-                        var {start} = this.tmpYearRangeValue;
-                        this.setTmpYearRange(start + 10);
-                    }
-                }
+                !this.orientation ? this.increaseDateValue : this.decreaseDateValue
             );
             
             this.els.weekBody = this.el.querySelector('.wdp-date-container .wdp-date-body .wdp-week-body')
@@ -236,7 +204,10 @@ export default class WindowDatePicker {
                 [Util.MOUSE_DOWN],
                 e => {
                     e.preventDefault();
-                    this.setHour(this.value.hour - 1);
+                    if(this.orientation)
+                        this.setHour(this.value.hour + 1);
+                    else
+                        this.setHour(this.value.hour - 1);
                 }
             )
             Util.addEventListener(
@@ -244,7 +215,10 @@ export default class WindowDatePicker {
                 [Util.MOUSE_DOWN],
                 e => {
                     e.preventDefault();
-                    this.setHour(this.value.hour + 1);
+                    if(!this.orientation)
+                        this.setHour(this.value.hour + 1);
+                    else
+                        this.setHour(this.value.hour - 1);
                 }
             )
 
@@ -258,7 +232,10 @@ export default class WindowDatePicker {
                 [Util.MOUSE_DOWN],
                 e => {
                     e.preventDefault();
-                    this.setMinute(this.value.minute - 1);
+                    if(this.orientation)
+                        this.setMinute(this.value.minute + 1);
+                    else
+                        this.setMinute(this.value.minute - 1);
                 }
             )
             Util.addEventListener(
@@ -266,7 +243,10 @@ export default class WindowDatePicker {
                 [Util.MOUSE_DOWN],
                 e => {
                     e.preventDefault();
-                    this.setMinute(this.value.minute + 1);
+                    if(!this.orientation)
+                        this.setMinute(this.value.minute + 1);
+                    else
+                        this.setMinute(this.value.minute - 1);
                 }
             )
 
@@ -768,8 +748,12 @@ export default class WindowDatePicker {
      * @param {Event} e 
      */
     wheelHourInput(e) {
-        e.preventDefault();
         var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
+        
+        if(this.orientation) {
+            delta = ~delta;
+        }
+
         if(delta < 0) {
             this.setHour(this.value.hour - 1);
         } else {
@@ -783,8 +767,12 @@ export default class WindowDatePicker {
      * @param {Event} e 
      */
     wheelMinuteInput(e) {
-        e.preventDefault();
         var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
+
+        if(this.orientation) {
+            delta = ~delta;
+        }
+
         if(delta < 0) {
             this.setMinute(this.value.minute - 1);
         } else {
@@ -794,11 +782,8 @@ export default class WindowDatePicker {
 
     /**
      * Sets am/pm input according to wheel.
-     * 
-     * @param {Event} e 
      */
-    wheelAMInput(e) {
-        e.preventDefault();
+    wheelAMInput() {
         this.setAM(!this.value.am);
     }
 
@@ -1320,6 +1305,56 @@ export default class WindowDatePicker {
             this.el.style.top = (rect.top - oh) + 'px';
         } else {
             this.el.style.top = (rect.top + rect.height) + 'px';
+        }
+    }
+
+        /**
+     * Increases date value by one.
+     * 
+     * @params {Event} e 
+     */
+    increaseDateValue(e) {
+        e.preventDefault();
+        if(this.datePage == T.MONTH) {
+            var {month, year} = this.tmpValue;
+            if(month == 12) {
+                month = 1;
+                year += 1;
+            } else {
+                month += 1;
+            }
+            this.setTmpMonth(month, year);
+        } else if(this.datePage == T.YEAR) {
+            var {year} = this.tmpYearValue;
+            this.setTmpYear(year + 1);
+        } else {
+            var {start} = this.tmpYearRangeValue;
+            this.setTmpYearRange(start + 10);
+        }
+    }
+
+    /**
+     * Decreases date value by one.
+     * 
+     * @params {Event} e
+     */
+    decreaseDateValue(e) {
+        e.preventDefault();
+        if(this.datePage == T.MONTH) {
+            var {month, year} = this.tmpValue;
+            if(month == 1) {
+                month = 12;
+                year -= 1;
+            } else {
+                month -= 1;
+            }
+            this.setTmpMonth(month, year);
+        } else if(this.datePage == T.YEAR) {
+            var {year} = this.tmpYearValue;
+            this.setTmpYear(year - 1);
+        } else {
+            var {start} = this.tmpYearRangeValue;
+            this.setTmpYearRange(start - 10);
         }
     }
 
