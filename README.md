@@ -1,21 +1,21 @@
-# Window Date Picker
-Window Date Picker is a JavaScript library for setting and choosing date and hour.
+# Date Picker
+Date Picker is a JavaScript library for setting and choosing date and hour.
 
 ## NPM
-```
-npm install --save-dev window-date-picker
+```sh
+npm install --save @cevad-tokatli/date-picker
 ```
 
 ## Yarn
-```
-yarn add window-date-picker --dev 
+```sh
+yarn add @cevad-tokatli/date-picker
 ```
 
 ## Installation
-```
-import WindowDatePicker from 'window-date-picker';
+```typescript
+import DatePicker from '@cevad-tokatli/date-picker';
 
-const picker = new WindowDatePicker({
+const picker = new DatePicker({
     el: '#picker',
     toggleEl: '#toggle',
     inputEl: '#input'
@@ -23,8 +23,8 @@ const picker = new WindowDatePicker({
 ```
 
 Add the css file.
-```
-<link rel="stylesheet" href="/node_modules/window-date-picker/dist/css/window-date-picker.min.css" />
+```html
+<link rel="stylesheet" href="/node_modules/@cevad-tokatli/date-picker/css/date-picker.min.css" />
 ```
 
 ## Settings
@@ -68,10 +68,10 @@ wdp.save | Fires when the selection is saved.
 wdp.cancel | Fires when the picker is closed without being saved.
 wdp.destroy | Fires when the picker is destroyed.
 
-```
-import WindowDatePicker from 'window-date-picker';
+```typescript
+import DatePicker from '@cevad-tokatli/date-picker';
 
-const picker = new WindowDatePicker({
+const picker = new DatePicker({
   el: '#picker'
 });
 
@@ -85,10 +85,10 @@ picker.el.addEventListener('wdp.close', () => {
 ```
 
 ## Set Position
-When window is scrolled or resized and triggers scroll or resize event, Window Date Picker repositions the picker. If you use third party scroll or resize library that don't trigger window resize or scroll event, you can manually call method `setPosition` to reposition the picker.
+When window is scrolled or resized and triggers scroll or resize event, Date Picker repositions the picker. If you use third party scroll or resize library that don't trigger window resize or scroll event, you can manually call method `setPosition` to reposition the picker.
 
-```
-var picker = new WindowDatePicker({
+```typescript
+var picker = new DatePicker({
   el: '#picker'
 });
 
@@ -101,10 +101,10 @@ picker.setPosition();
 
 ## Language
 You can create a language to use with `lang` attribute.
-```
-import WindowDatePicker from 'window-date-picker';
+```typescript
+import DatePicker from '@cevad-tokatli/date-picker';
 
-WindowDatePicker.createLanguage('tr', {
+DatePicker.createLanguage('tr', {
     DAYS_ABBR: ['', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
     MONTHS: ['', 'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
     MONTHS_ABBR: ['', 'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
@@ -113,7 +113,7 @@ WindowDatePicker.createLanguage('tr', {
     INVALID_DATE: 'Geçersiz Tarih'
 });
 
-new WindowDatePicker({
+new DatePicker({
   el: '#picker',
   lang: 'tr'
 });
@@ -122,7 +122,7 @@ new WindowDatePicker({
 ## Theme
 You can change colors of the picker by adding a css class to main element.
 
-```
+```html
 <div id="picker"></div>
 <div id="blue-picker" class="wdp-blue"></div>
 <div id="cyan-picker" class="wdp-cyan"></div>
@@ -138,7 +138,7 @@ You can change colors of the picker by adding a css class to main element.
 You can also create your own theme for your picker.
 
 Create a new file under theme folder.
-```
+```scss
 // theme/_my_theme.scss
 
 $color: #EEA55B;
@@ -157,7 +157,7 @@ $button-text: $color-dark;
 ```
 
 Import your theme to `_theme.scss` file`.
-```
+```scss
 // _theme.scss
 ...
 @import 'theme/purple';
@@ -167,21 +167,15 @@ Import your theme to `_theme.scss` file`.
 ```
 
 Bundle css code.
-```
+```sh
 $ gulp css
 $ gulp minify-css
 ```
 
 You are ready to use your theme.
-```
+```html
 <div id="picker" class="wdp-my-theme"></div>
 ```
 
-## IE Support
-IE 10 is not supported and patches to fix problems will not be accepted.
-
 ## License
-Window Date Picker is provided under the [MIT License](https://opensource.org/licenses/MIT).
-
-## Related Projects
-* [Window Date Picker React](https://github.com/cevadtokatli/window-date-picker-react)
+Date Picker is provided under the [MIT License](https://opensource.org/licenses/MIT).

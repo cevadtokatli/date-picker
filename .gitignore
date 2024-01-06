@@ -1,4 +1,6 @@
 node_modules/
 demo/
+dist/
+package-lock.json
 yarn.lock
 .vscode/

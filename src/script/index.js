@@ -1,1 +1,1 @@
-export {default} from './window-date-picker';
+export {default} from './date-picker';
